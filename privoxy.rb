@@ -5,19 +5,6 @@ class Privoxy < Formula
   sha256 "c61de4008c62445ec18f1f270407cbf2372eaba93beaccdc9e3238bb2defeed7"
   license "GPL-2.0-or-later"
 
-  livecheck do
-    url :stable
-    regex(%r{url=.*?/privoxy[._-]v?(\d+(?:\.\d+)+)[._-]stable[._-]src\.t}i)
-  end
-
-  bottle do
-    sha256 cellar: :any,                 arm64_big_sur: "c30372261661ab924bd6e3df9c86804d188dd130d0810e55e81aaa3431f924df"
-    sha256 cellar: :any,                 big_sur:       "2edd70c7227801bd01df3b6ee756802daa63d8567c3d7d79bceb80233f18bbff"
-    sha256 cellar: :any,                 catalina:      "b6b4b6fb269021a16685b7ee407ff8384699cf05910d3afbfac191afd6f1e588"
-    sha256 cellar: :any,                 mojave:        "d7302bde6de73110eff0a8e86554414641d7a2eac7ebe4aff54956f7609acc5b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8e7d8a8671f959df63a6af51510e044ea179b947b1a2c38b954804cf9950877e"
-  end
-
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
@@ -28,10 +15,11 @@ class Privoxy < Formula
     # Find Homebrew's libpcre
     ENV.append "LDFLAGS", "-L#{HOMEBREW_PREFIX}/lib"
 
-    # No configure script is shipped with the source
+    system "autoheader"
     system "autoreconf", "-i"
 
-    system "./configure", "--enable-compression",
+    system "./configure", "--enable-extended-statistics",
+                          "--enable-compression",
                           "--with-openssl",
                           "--disable-debug",
                           "--disable-dependency-tracking",
