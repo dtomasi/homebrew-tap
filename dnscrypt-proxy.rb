@@ -26,7 +26,7 @@ class DnscryptProxy < Formula
         system "go", "build", "-ldflags", "-X main.version=#{version}", "-o",
                sbin/"dnscrypt-proxy"
         pkgshare.install Dir["example*"]
-        etc.install pkgshare/"example-dnscrypt-proxy.toml" => "dnscrypt-proxy/dnscrypt-proxy.toml"
+        pkgetc.install pkgshare/"example-dnscrypt-proxy.toml" => "dnscrypt-proxy.toml"
       end
     end
   
@@ -42,12 +42,6 @@ class DnscryptProxy < Formula
         balancing traffic across a set of resolvers. If you would like to
         change these settings, you will have to edit the configuration file:
           #{etc}/dnscrypt-proxy/dnscrypt-proxy.toml
-
-        Configuration example files can be found here:
-          #{pkgshare}
-
-        You can copy them over using following command:
-          for file in #{pkgshare}/example-*; do mv "$file" "#{etc}/${file#example-}";done;
   
         To check that dnscrypt-proxy is working correctly, open Terminal and enter the
         following command. Replace en1 with whatever network interface you're using:
