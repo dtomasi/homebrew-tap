@@ -44,10 +44,10 @@ class DnscryptProxy < Formula
           #{etc}/dnscrypt-proxy/dnscrypt-proxy.toml
 
         Configuration example files can be found here:
-          #{pkgshare}/dnscrypt-proxy
+          #{pkgshare}
 
         You can copy them over using following command:
-          for file in #{pkgshare}/dnscrypt-proxy/example-*; do mv "$file" "#{etc}/dnscrypt-proxy/${file#example-}";done;
+          for file in #{pkgshare}/example-*; do mv "$file" "#{etc}/${file#example-}";done;
   
         To check that dnscrypt-proxy is working correctly, open Terminal and enter the
         following command. Replace en1 with whatever network interface you're using:
